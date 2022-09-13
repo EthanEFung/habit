@@ -1,9 +1,9 @@
 # habit
-simple habit track cli tool.
+Just a simple habit tracking cli tool.
 
 # how to install
 
-Application relies on your home directory having a `Documents` folder to publish csv
+This application relies on your home directory having a `Documents` folder to publish csv
 files to. From the command line run the following
 
 ```bash
