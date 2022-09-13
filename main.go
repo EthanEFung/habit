@@ -19,15 +19,16 @@ func check(err error) {
 	}
 }
 
-func beginningOfMonth(date time.Time)  (time.Time) {
-	return date.AddDate(0, 0, -date.Day() + 1)
+func beginningOfMonth(date time.Time) time.Time {
+	return date.AddDate(0, 0, -date.Day()+1)
 }
 
-func endOfMonth(date time.Time) (time.Time) {
+func endOfMonth(date time.Time) time.Time {
 	return date.AddDate(0, 1, -date.Day())
 }
 
 var directory string
+
 func init() {
 	defaultFileDir := filepath.Join(os.Getenv("HOME"), "Documents")
 	flag.StringVar(&directory, "dir", defaultFileDir, "default directory to save csv files")
@@ -67,15 +68,15 @@ func main() {
 
 	// create month view of progress
 
-  // first create a hash set of all the time task has been done
+	// first create a hash set of all the time task has been done
 	f, err = os.OpenFile(fp, os.O_RDONLY, 0600)
 	check(err)
 	defer f.Close()
-	
+
 	reader := csv.NewReader(f)
 
 	did := make(map[time.Time]bool)
-	
+
 	for {
 		record, err := reader.Read()
 		if err == io.EOF {
@@ -95,7 +96,7 @@ func main() {
 	first, last := beginningOfMonth(now), endOfMonth(now)
 	curr := first
 
-  var builder strings.Builder
+	var builder strings.Builder
 
 	n := 1
 	builder.WriteString("Monthly view: ________\n")
@@ -111,7 +112,7 @@ func main() {
 			str := strconv.Itoa(day)
 			builder.WriteString(str)
 		}
-		if n % 7 == 0 {
+		if n%7 == 0 {
 			builder.WriteString("|\n _____________________\n")
 		}
 		curr = curr.Add(time.Hour * 24)
