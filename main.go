@@ -75,7 +75,7 @@ func main() {
 
 	reader := csv.NewReader(f)
 
-	did := make(map[time.Time]bool)
+	did := make(map[int]bool)
 
 	for {
 		record, err := reader.Read()
@@ -89,7 +89,7 @@ func main() {
 
 		check(err)
 		if record[0] == task {
-			did[curr] = true
+			did[curr.Day()] = true
 		}
 	}
 
@@ -101,7 +101,7 @@ func main() {
 	n := 1
 	builder.WriteString("Monthly view: ________\n")
 	for curr.Equal(last) || curr.Before(last) {
-		if did[curr] {
+		if did[curr.Day()] {
 			builder.WriteString("|✅")
 		} else {
 			day := curr.Day()
